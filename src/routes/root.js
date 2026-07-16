@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.send("salmax API Running");
+  res.send("Salmax API Running");
 });
 
 module.exports = router;
