@@ -378,6 +378,12 @@ const uploadProductImages = async (req, res) => {
       });
     }
 
+    if (product.images.length + req.files.length > 5) {
+      return res.status(400).json({
+        message: `Cannot upload ${req.files.length} image(s). Product already has ${product.images.length}, and the maximum is 5.`,
+      });
+    }
+
     const uploadedImages = req.files.map((file) => ({
       url: file.path,
       publicId: file.filename,
