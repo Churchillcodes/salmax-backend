@@ -39,7 +39,9 @@ const createCategory = async (req, res) => {
       group: normalizedGroup,
     });
 
-    res.status(201).json({ message: "Category created successfully", category });
+    res
+      .status(201)
+      .json({ message: "Category created successfully", category });
   } catch (err) {
     if (err.code === 11000) {
       return res.status(409).json({ message: "This category already exists" });
@@ -63,6 +65,18 @@ const getAllCategories = async (req, res) => {
       name: 1,
     });
 
+    res.status(200).json(categories);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// get all archived categories - ADMIN
+const getArchivedCategories = async (req, res) => {
+  try {
+    const categories = await Category.find({ isActive: false }).sort({
+      updatedAt: -1,
+    });
     res.status(200).json(categories);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -95,7 +109,9 @@ const updateCategory = async (req, res) => {
       return res.status(404).json({ message: "Category not found" });
     }
 
-    res.status(200).json({ message: "Category updated successfully", category });
+    res
+      .status(200)
+      .json({ message: "Category updated successfully", category });
   } catch (err) {
     if (err.name === "CastError") {
       return res.status(400).json({ message: "Invalid ID format" });
@@ -124,7 +140,9 @@ const deleteCategory = async (req, res) => {
       return res.status(404).json({ message: "Category not found" });
     }
 
-    res.status(200).json({ message: "Category archived successfully", category });
+    res
+      .status(200)
+      .json({ message: "Category archived successfully", category });
   } catch (err) {
     if (err.name === "CastError") {
       return res.status(400).json({ message: "Invalid ID format" });
@@ -136,6 +154,7 @@ const deleteCategory = async (req, res) => {
 module.exports = {
   createCategory,
   getAllCategories,
+  getArchivedCategories,
   updateCategory,
   deleteCategory,
 };

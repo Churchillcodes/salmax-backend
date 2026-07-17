@@ -6,6 +6,7 @@ const {
   getAllCategories,
   updateCategory,
   deleteCategory,
+  getArchivedCategories,
 } = require("../controllers/categoryController");
 const verifyJWT = require("../middleware/verifyJWT");
 const verifyRoles = require("../middleware/verifyRoles");
@@ -15,6 +16,12 @@ const ROLES_LIST = require("../config/roles_list");
 router.get("/", getAllCategories);
 
 // ADMIN
+router.get(
+  "/archived",
+  verifyJWT,
+  verifyRoles(ROLES_LIST.Admin),
+  getArchivedCategories,
+);
 router.post("/", verifyJWT, verifyRoles(ROLES_LIST.Admin), createCategory);
 router.patch("/:id", verifyJWT, verifyRoles(ROLES_LIST.Admin), updateCategory);
 router.delete("/:id", verifyJWT, verifyRoles(ROLES_LIST.Admin), deleteCategory);
