@@ -32,6 +32,12 @@ const categorySchema = new mongoose.Schema(
       default: null,
     },
 
+    description: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
     isActive: {
       type: Boolean,
       default: true,

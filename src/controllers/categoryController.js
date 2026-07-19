@@ -6,7 +6,7 @@ const ALLOWED_PRODUCT_TYPES = ["Shoes", "Bags", "Clothes"];
 // create category (admin adds a new subcategory, e.g. "Loafers" under Shoes/Men)
 const createCategory = async (req, res) => {
   try {
-    const { name, productType, group } = req.body;
+    const { name, productType, group, description } = req.body;
 
     if (!name || !productType) {
       return res
@@ -37,6 +37,7 @@ const createCategory = async (req, res) => {
       name: normalizedName,
       productType: normalizedType,
       group: normalizedGroup,
+      description: description || "",
     });
 
     res
