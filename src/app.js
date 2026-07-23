@@ -4,7 +4,7 @@ const app = express();
 const logger = require("./middleware/logger");
 const cookieParser = require("cookie-parser");
 
-const allowedOrigins = ["http://localhost:5173"];
+const allowedOrigins = ["http://localhost:5173", "http://192.168.137.1:5173"];
 
 app.use(
   cors({
