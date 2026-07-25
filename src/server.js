@@ -13,3 +13,11 @@ mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB");
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 });
+
+mongoose.connection.on("error", (err) => {
+  console.error("MongoDB runtime error:", err.message);
+});
+
+mongoose.connection.on("disconnected", () => {
+  console.warn("MongoDB disconnected");
+});
