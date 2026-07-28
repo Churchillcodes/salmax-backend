@@ -68,6 +68,12 @@ const handleNewLogin = async (req, res) => {
 
     const roles = Object.values(foundUser.roles).filter(Boolean);
 
+    if (!roles.includes(ROLES_LIST.Admin)) {
+      return res.status(403).json({
+        message: "You are not authorized to access the administrative portal.",
+      });
+    }
+
     const accessToken = jwt.sign(
       {
         UserInfo: {
@@ -95,7 +101,13 @@ const handleNewLogin = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    res.json({ accessToken });
+    res.json({
+      accessToken,
+      user: {
+        username: foundUser.username,
+        roles,
+      },
+    });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
@@ -134,7 +146,13 @@ const handleRefreshToken = async (req, res) => {
           process.env.ACCESS_TOKEN_SECRET,
           { expiresIn: "15m" },
         );
-        res.json({ accessToken });
+        res.json({
+          accessToken,
+          user: {
+            username: foundUser.username,
+            roles,
+          },
+        });
       },
     );
   } catch (err) {
