@@ -14,8 +14,8 @@ const ROLES_LIST = require("../config/roles_list");
 
 router.post(
   "/register",
-  /* verifyJWT,
-  verifyRoles(ROLES_LIST.Admin), */
+  verifyJWT,
+  verifyRoles(ROLES_LIST.Admin),
   authLimiter,
   handleNewUser,
 );
