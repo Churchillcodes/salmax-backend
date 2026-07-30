@@ -40,6 +40,22 @@ const connectDB = async () => {
     console.error("\nError Object:");
     console.error(err);
 
+    if (err.reason?.servers) {
+      console.error("\n===== SERVER DETAILS =====");
+
+      for (const [address, server] of err.reason.servers) {
+        console.error(`\nServer: ${address}`);
+        console.error("Type:", server.type);
+
+        if (server.error) {
+          console.error("Underlying Error:");
+          console.error(server.error);
+        }
+      }
+
+      console.error("==========================");
+    }
+
     console.error("\nStack:");
     console.error(err.stack);
 
