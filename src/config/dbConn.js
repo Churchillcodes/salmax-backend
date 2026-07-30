@@ -23,7 +23,28 @@ const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
   } catch (err) {
+    console.error("\n========== DATABASE CONNECTION ERROR ==========\n");
+
+    console.error("Name:");
+    console.error(err.name);
+
+    console.error("\nMessage:");
+    console.error(err.message);
+
+    console.error("\nCause:");
+    console.error(err.cause);
+
+    console.error("\nReason:");
+    console.error(err.reason);
+
+    console.error("\nError Object:");
     console.error(err);
+
+    console.error("\nStack:");
+    console.error(err.stack);
+
+    console.error("\n===============================================\n");
+
     process.exit(1);
   }
 };

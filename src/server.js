@@ -5,6 +5,19 @@ const connectDB = require("./config/dbConn");
 
 const PORT = process.env.PORT || 3500;
 
+console.log("========== ENVIRONMENT ==========");
+console.log("Node:", process.version);
+
+console.log("Mongoose:", require("mongoose/package.json").version);
+
+try {
+  console.log("MongoDB Driver:", require("mongodb/package.json").version);
+} catch (err) {
+  console.log("MongoDB Driver: Unable to determine version");
+}
+
+console.log("=================================");
+
 // Connect to MongoDB
 connectDB();
 
